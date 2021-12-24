@@ -13,9 +13,17 @@ main#root {
 div#editor {
     display: grid;
     grid-template-columns: 60% 40%;
+    grid-template-areas: 
+    "preview pane"
+    "preview milestones";
+}
+
+section#preview {
+    grid-area: preview;
 }
 
 section#editor-pane {
+    grid-area: pane;
     display: grid;
     grid-template-rows: repeat(6, auto);
     gap: 2.9rem;
@@ -113,4 +121,33 @@ a.floating-button {
 hr {
     width: 100%;
     border: 1px solid var(--secondary-color);
+}
+
+section#milestones {
+    grid-area: milestones;
+    margin-top: 1.25rem;
+}
+
+ol.clean {
+    list-style-type: none;
+    padding: 0;
+}
+
+div.milestone-card {
+    display: grid;
+    grid-template-columns: 4fr .5fr .5fr;
+    place-items: center;
+    gap: 1.6rem;
+    background-color: var(--higher-area-color);
+    border: 1px solid var(--main-color);
+    box-shadow: var(--default-shadow);
+    padding: 1.125rem 2.94rem;
+    margin: 1.25rem 8.75rem 1.25rem 0;
+}
+
+p.card-title {
+    font-family: 'Roboto' sans-serif;
+    font-size: var(--regular-font-size);
+    color: var(--main-color);
+    word-wrap: break-word;
 }
