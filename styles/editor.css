@@ -94,3 +94,10 @@ hr {
     width: 100%;
     border: 1px solid var(--secondary-color);
 }
+
+@media (max-width: 1395px) {
+    div.download-buttons {
+        grid-template-columns: none;
+        grid-template-rows: auto auto;
+    }
+}
