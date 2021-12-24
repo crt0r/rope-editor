@@ -49,8 +49,17 @@ input[type="text"] {
 }
 
 input[type="color"] {
+    background-color: var(--higher-area-color);
+    border-radius: .5rem;
+    padding: .4rem 2rem .4rem 2rem;
     min-width: 9.9rem;
     min-height: 2rem;
+    cursor: pointer;
+    transition: background-color 200ms;
+}
+
+input[type="color"]:hover {
+    background-color: var(--secondary-color);
 }
 
 div#project-info-with-text-alignment {
