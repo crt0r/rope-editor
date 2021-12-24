@@ -10,7 +10,37 @@
 </head>
 <body>
     <main id="root">
-
+        <div id="editor">
+            <section id="preview"></section>
+            <section id="editor-pane">
+                <div id="project-info">
+                    <label for="project-name-field">Project name</label>
+                    <input type="text" name="project-name-field" id="project-name-field">
+                </div>
+                <hr/>
+                <div id="text-color-selection">
+                    <label for="text-color-selector">Text color</label>
+                    <input type="color" name="text-color-selector" id="text-color-selector">
+                </div>
+                <div id="background-color-selection">
+                    <label for="background-color-selector">Background color</label>
+                    <input type="color" name="background-color-selector" id="background-color-selector">
+                </div>
+                <div id="completed-milestone-color-selection">
+                    <label for="completed-milestone-color-selector">Completed milestone color</label>
+                    <input type="color" name="completed-milestone-color-selector" id="completed-milestone-color-selector">
+                </div>
+                <div id="uncompleted-milestone-color-selection">
+                    <label for="uncompleted-milestone-color-selector">Uncompleted milestone color</label>
+                    <input type="color" name="uncompleted-milestone-color-selector" id="uncompleted-milestone-color-selector">
+                </div>
+                <hr/>
+                <a href="" class="button dropdown-button">Download</a>
+            </section>
+            <section id="milestones">
+                <ol></ol>
+            </section>
+        </div>
     </main>
 </body>
 </html>
