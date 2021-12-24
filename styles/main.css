@@ -1,0 +1,84 @@
+:root {
+    --main-color: #783844;
+    --secondary-color: #D14D65;
+    --background-color: #FFFDD7;
+
+    --title-font-family: 'Righteous', cursive;
+    --regular-font-family: 'Roboto', sans-serif;
+
+    --heading-font-size: 32px;
+    --title-font-size: 24px;
+    --regular-font-size: 16px;
+}
+
+html {
+    font-family: var(--regular-font-family);
+    font-size: var(--regular-font-size);
+}
+
+body {
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 1rem 2rem;
+    min-height: 100vh;
+}
+
+main#root {
+    display: grid;
+    place-items: center;
+    grid-template-rows: auto auto;
+    grid-gap: 100%;
+}
+
+.title {
+    font-family: var(--title-font-family);
+    color: var(--main-color);
+    font-size: var(--title-font-size);
+}
+
+h1.title {
+    font-size: var(--heading-font-size);
+    text-align: center;
+}
+
+.subtitle {
+    color: var(--secondary-color);
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+section#user-actions {
+    display: grid;
+    grid-template-rows: auto auto;
+    place-items: center;
+    grid-gap: 2rem;
+}
+
+.button {
+    min-width: 11.5rem;
+    border: 1px solid var(--main-color);
+    border-radius: .3rem;
+    padding: .5rem 1rem;
+    color: var(--main-color);
+    transition: background-color 200ms, color 200ms;
+}
+
+section#user-actions a.button {
+    display: grid;
+    grid-gap: 1rem;
+    align-items: center;
+    justify-items: start;
+    justify-content: center;
+    grid-template-columns: 1rem auto;
+}
+
+.button:hover {
+    background-color: var(--secondary-color);
+    color: var(--background-color);
+}
