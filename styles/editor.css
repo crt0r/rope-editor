@@ -1,0 +1,96 @@
+:root {
+    --higher-area-color: #fffced;
+    --warm-white-color: #fffdf7;
+
+    --default-shadow: 0px .3rem 1rem var(--main-color);
+}
+
+main#root {
+    display: block;
+    padding: 0;
+}
+
+div#editor {
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+
+section#editor-pane {
+    display: grid;
+    grid-template-rows: repeat(6, auto);
+    gap: 2.9rem;
+    place-items: start;
+    background-color: var(--higher-area-color);
+    box-shadow: var(--default-shadow);
+    border: 1px solid var(--main-color);
+    padding: 2.9rem 3rem 2.1rem 3rem;
+}
+
+div.editor-pane-section {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 1.4rem;
+}
+
+hr {
+    background-color: var(--secondary-color);
+}
+
+input[type="text"] {
+    min-width: 16rem;
+    min-height: 2rem;
+    color: var(--secondary-color);
+    font-family: inherit;
+    font-size: inherit;
+    border: 1px solid var(--main-color);
+    border-radius: .5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+input[type="color"] {
+    min-width: 9.9rem;
+    min-height: 2rem;
+}
+
+div#project-info-with-text-alignment {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 2rem;
+}
+
+div#alignment-control-buttons {
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(3, auto);
+}
+
+a.image-button {
+    display: grid;
+    place-items: center;
+    text-align: center;
+    height: 3rem;
+    min-width: 3rem;
+    padding: 0;
+    color: var(--main-color);
+}
+
+a.image-button:hover {
+    color: var(--higher-area-color);
+}
+
+a.image-button-pressed {
+    background-color: var(--secondary-color);
+    color: var(--higher-area-color);
+}
+
+div.download-buttons {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 2rem;
+}
+
+hr {
+    width: 100%;
+    border: 1px solid var(--secondary-color);
+}

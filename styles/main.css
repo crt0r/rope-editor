@@ -19,11 +19,11 @@ html {
 body {
     background-color: var(--background-color);
     margin: 0;
-    padding: 1rem 2rem;
     min-height: 100vh;
 }
 
 main#root {
+    padding: 1rem 2rem;
     display: grid;
     place-items: center;
     grid-template-rows: auto auto;
@@ -49,7 +49,7 @@ a {
     text-decoration: none;
 }
 
-a:hover {
+.button:hover {
     cursor: pointer;
 }
 
@@ -69,7 +69,7 @@ section#user-actions {
     transition: background-color 200ms, color 200ms;
 }
 
-section#user-actions a.button {
+a.button:not([class*="image-button"]) {
     display: grid;
     grid-gap: 1rem;
     align-items: center;

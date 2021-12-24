@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/editor.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto&display=swap" rel="stylesheet">
+    <script defer src="https://kit.fontawesome.com/d6558207b9.js" crossorigin="anonymous"></script>
     <title>Rope Editor</title>
 </head>
 <body>
@@ -13,29 +17,45 @@
         <div id="editor">
             <section id="preview"></section>
             <section id="editor-pane">
-                <div id="project-info">
-                    <label for="project-name-field">Project name</label>
-                    <input type="text" name="project-name-field" id="project-name-field">
+                <div id="project-info-with-text-alignment">
+                    <div class="editor-pane-section" id="project-info">
+                        <label class="title" for="project-name-field">Project name</label>
+                        <input type="text" name="project-name-field" id="project-name-field">
+                    </div>
+                    <div id="alignment-control-buttons">
+                        <a class="button image-button image-button-pressed fas fa-align-left" id="align-left"></a>
+                        <a class="button image-button fas fa-align-center" id="align-center"></a>
+                        <a class="button image-button fas fa-align-right" id="align-right"></a>
+                    </div>
                 </div>
                 <hr/>
-                <div id="text-color-selection">
-                    <label for="text-color-selector">Text color</label>
+                <div class="editor-pane-section" id="text-color-selection">
+                    <label class="title" for="text-color-selector">Text color</label>
                     <input type="color" name="text-color-selector" id="text-color-selector">
                 </div>
-                <div id="background-color-selection">
-                    <label for="background-color-selector">Background color</label>
+                <div class="editor-pane-section" id="background-color-selection">
+                    <label class="title" for="background-color-selector">Background color</label>
                     <input type="color" name="background-color-selector" id="background-color-selector">
                 </div>
-                <div id="completed-milestone-color-selection">
-                    <label for="completed-milestone-color-selector">Completed milestone color</label>
+                <div class="editor-pane-section" id="completed-milestone-color-selection">
+                    <label class="title" for="completed-milestone-color-selector">Completed milestone color</label>
                     <input type="color" name="completed-milestone-color-selector" id="completed-milestone-color-selector">
                 </div>
-                <div id="uncompleted-milestone-color-selection">
-                    <label for="uncompleted-milestone-color-selector">Uncompleted milestone color</label>
+                <div class="editor-pane-section" id="uncompleted-milestone-color-selection">
+                    <label class="title" for="uncompleted-milestone-color-selector">Uncompleted milestone color</label>
                     <input type="color" name="uncompleted-milestone-color-selector" id="uncompleted-milestone-color-selector">
                 </div>
                 <hr/>
-                <a href="" class="button dropdown-button">Download</a>
+                <div class="download-buttons">
+                    <a class="button dropdown-button" id="download-project">
+                        <i class="fas fa-download"></i>
+                        Download ROPE
+                    </a>
+                    <a class="button dropdown-button" id="download-png">
+                        <i class="fas fa-download"></i>
+                        Download PNG
+                    </a>
+                </div>
             </section>
             <section id="milestones">
                 <ol></ol>
