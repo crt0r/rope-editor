@@ -1,0 +1,8 @@
+{
+  "name": "rope-editor",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "jquery-connections": "^1.0.1"
+  }
+}

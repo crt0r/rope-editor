@@ -6,16 +6,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/editor.css">
+    <link rel="stylesheet" href="styles/roadmap-default.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script defer src="node_modules/jquery-connections/jquery.connections.js"></script>
     <script defer src="https://kit.fontawesome.com/d6558207b9.js" crossorigin="anonymous"></script>
     <title>Rope Editor</title>
 </head>
 <body>
     <main id="root">
         <div id="editor">
-            <section id="preview"></section>
+            <section id="preview">
+                <h1 class="title">Preview</h1>
+                <div class="preview-canvas">
+                    <h2 class="project-name">Example</h2>
+                    <div class="project-milestones">
+                        <div class="milestone">
+                            <div class="far fa-check-circle milestone-mark completed"></div>
+                            <div class="milestone-info">
+                                <p class="milestone-name">First Milestone</p>
+                                <p class="milestone-description">Just a short example</p>
+                            </div>
+                        </div>
+
+                        <div class="milestone">
+                            <div class="far fa-circle milestone-mark uncompleted"></div>
+                            <div class="milestone-info">
+                                <p class="milestone-name">Second Milestone With Veeeryyy Looong Tiiitleeeeeeeeeee</p>
+                                <p class="milestone-description">Yayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</p>
+                            </div>
+                        </div>
+
+                        <div class="milestone">
+                            <div class="far fa-circle milestone-mark uncompleted"></div>
+                            <div class="milestone-info">
+                                <p class="milestone-name">Second Milestone With Veeeryyy Looong Tiiitleeeeeeeeeeeyyyyyyyyyyyyyyyyyyyyyyyyyyyy</p>
+                                <p class="milestone-description">Yayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    $(document).ready(() => {                        
+                        const createMilestoneMarkSelectorWithParentPseudoClass = (pseudoClass) => (
+                            `.milestone${pseudoClass} .milestone-mark`
+                        );
+
+                        $(createMilestoneMarkSelectorWithParentPseudoClass(':first-child'))
+                            .connections({ to: `${createMilestoneMarkSelectorWithParentPseudoClass(':last-child')}` });
+                    });
+                </script>
+            </section>
             <section id="editor-pane">
                 <div id="project-info-with-text-alignment">
                     <div class="editor-pane-section" id="project-info">
