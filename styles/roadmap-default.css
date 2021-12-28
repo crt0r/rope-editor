@@ -18,7 +18,16 @@ section#preview > div.preview-canvas {
 h2.project-name {
     font-family: 'Roboto' sans-serif;
     font-size: var(--heading-font-size);
+    padding: 0 4rem;
     color: var(--main-color);
+}
+
+h2.project-name-justify-start {
+    justify-self: start;
+}
+
+h2.project-name-justify-end {
+    justify-self: end;
 }
 
 div.project-milestones {
