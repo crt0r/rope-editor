@@ -31,10 +31,46 @@ const projectNameJustifyClassNamePart = `${projectNameClassName}-justify-`;
 const milestonesContainerClassName = 'project-milestones';
 const milestoneElementClassName = 'milestone';
 
-export function renderRoadmap({ projectName, milestones, colors }) {
+const defaultTextColor = '#783844';
+const defaultBackgroundColor = '#fffced';
+const defaultCompletedMilestoneColor = '#5a803e';
+const defaultUncompletedMilestoneColor = '#889e78';
+
+export function renderRoadmap({ projectName, milestones }) {
   renderProjectNameElement(projectName);
   renderMilestones(milestones);
 }
+
+export function setRoadmapColors({ 
+  textColor, backgroundColor, completedMilestoneColor, uncompletedMilestoneColor 
+}, previewCanvasMilestoneConnection) {
+  const projectNameElement = document.querySelector(projectNameElementName);
+  const previewCanvas = document.querySelector(previewCanvasClassName);
+  const previewCanvasPElements = document.querySelectorAll('.milestone-info p');
+  const previewCanvasMilestoneIcons = document.querySelectorAll('.milestone-mark');
+  const previewCanvasCompletedMilestoneIcons = document.querySelectorAll('.milestone-mark.completed');
+  const previewCanvasUncompletedMilestoneIcons = document.querySelectorAll('.milestone-mark.uncompleted');
+
+  setElementBackgroundColor(previewCanvas, backgroundColor);
+  setElementColor(projectNameElement, textColor);
+  setElementBorderColor(previewCanvasMilestoneConnection, textColor);
+
+  previewCanvasPElements.forEach((element) => setElementColor(element, replaceIfEmpty(textColor, defaultTextColor)));
+  previewCanvasMilestoneIcons
+    .forEach((element) => setElementBackgroundColor(element, replaceIfEmpty(backgroundColor, defaultBackgroundColor)));
+  previewCanvasCompletedMilestoneIcons
+    .forEach((element) => setElementColor(element, replaceIfEmpty(completedMilestoneColor, defaultCompletedMilestoneColor)));
+  previewCanvasUncompletedMilestoneIcons
+    .forEach((element) => setElementColor(element, replaceIfEmpty(uncompletedMilestoneColor, defaultUncompletedMilestoneColor)));
+}
+
+const replaceIfEmpty = (initialText, replaceWith) => initialText.trim().length <= 0 ? replaceWith : initialText;
+
+const setElementBorderColor = (element, colorStr) => element.style.borderColor = colorStr;
+
+const setElementBackgroundColor = (element, colorStr) => element.style.backgroundColor = colorStr;
+
+const setElementColor = (element, colorStr) => element.style.color = colorStr;
 
 function renderProjectNameElement(projectName) {
   const projectNameElement = document.querySelector(`${previewCanvasClassName} ${projectNameElementName}`);

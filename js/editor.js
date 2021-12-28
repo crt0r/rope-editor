@@ -22,28 +22,46 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-import { renderRoadmap } from './ui/editor/roadmap.js';
+import { renderRoadmap, setRoadmapColors } from './ui/editor/roadmap.js';
 
-renderRoadmap({
-    projectName: {
-        text: 'Example ProjectName',
-        justifyTo: 'start'
-    },
-    milestones: [
-        {
-            name: 'First Milestone',
-            description: 'Just a short example',
-            isCompleted: true
+const createMilestoneMarkSelectorWithParentPseudoClass = (pseudoClass) => (
+    `.milestone${pseudoClass} .milestone-mark`
+);
+
+renderCanvas();
+
+function renderCanvas() {
+    renderRoadmap({
+        projectName: {
+            text: 'Example ProjectName',
+            justifyTo: 'start'
         },
-        {
-            name: 'Second Milestone With Veeeryyy Looong Tiiitleeeeeeeeeee',
-            description: 'Yayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy',
-            isCompleted: false
-        },
-        {
-            name: 'Second Milestone With Veeeryyy Looong Tiiitleeeeeeeeeeeyyyyyyyyyyyyyyyyyyyyyyyyyyyy',
-            description: 'Yayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy',
-            isCompleted: false
-        }
-    ]
-});
+        milestones: [
+            {
+                name: 'First Milestone',
+                description: 'Just a short example',
+                isCompleted: true
+            },
+            {
+                name: 'Second Milestone',
+                description: 'Some text here',
+                isCompleted: false
+            },
+            {
+                name: 'Third Milestone',
+                description: 'More text here',
+                isCompleted: false
+            }
+        ]
+    });
+
+    $(createMilestoneMarkSelectorWithParentPseudoClass(':first-child'))
+        .connections({ to: `${createMilestoneMarkSelectorWithParentPseudoClass(':last-child')}` });
+
+    setRoadmapColors({
+        textColor: '#fff',
+        backgroundColor: '#000',
+        completedMilestoneColor: '',
+        uncompletedMilestoneColor: 'grey'
+    }, document.querySelector('connection'));
+}

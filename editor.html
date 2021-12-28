@@ -23,6 +23,7 @@ SOFTWARE.
 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,32 +33,24 @@ SOFTWARE.
     <link rel="stylesheet" href="styles/roadmap-default.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script defer src="node_modules/jquery-connections/jquery.connections.js"></script>
+    <script src="node_modules/jquery-connections/jquery.connections.js"></script>
     <script defer src="https://kit.fontawesome.com/d6558207b9.js" crossorigin="anonymous"></script>
     <script defer src="./js/editor.js" type="module"></script>
     <title>Rope Editor</title>
 </head>
+
 <body>
     <main id="root">
         <div id="editor">
             <section id="preview">
                 <h1 class="title">Preview</h1>
                 <div class="preview-canvas">
-                    <h2>Example</h2>
+                    <h2></h2>
                     <div class="project-milestones"></div>
                 </div>
-                <script>
-                    $(document).ready(() => {                        
-                        const createMilestoneMarkSelectorWithParentPseudoClass = (pseudoClass) => (
-                            `.milestone${pseudoClass} .milestone-mark`
-                        );
-
-                        $(createMilestoneMarkSelectorWithParentPseudoClass(':first-child'))
-                            .connections({ to: `${createMilestoneMarkSelectorWithParentPseudoClass(':last-child')}` });
-                    });
-                </script>
             </section>
             <section id="editor-pane">
                 <div id="project-info-with-text-alignment">
@@ -71,7 +64,7 @@ SOFTWARE.
                         <a class="button image-button fas fa-align-right" id="align-right"></a>
                     </div>
                 </div>
-                <hr/>
+                <hr />
                 <div class="editor-pane-section" id="text-color-selection">
                     <label class="title" for="text-color-selector">Text color</label>
                     <input type="color" name="text-color-selector" id="text-color-selector">
@@ -82,13 +75,15 @@ SOFTWARE.
                 </div>
                 <div class="editor-pane-section" id="completed-milestone-color-selection">
                     <label class="title" for="completed-milestone-color-selector">Completed milestone color</label>
-                    <input type="color" name="completed-milestone-color-selector" id="completed-milestone-color-selector">
+                    <input type="color" name="completed-milestone-color-selector"
+                        id="completed-milestone-color-selector">
                 </div>
                 <div class="editor-pane-section" id="uncompleted-milestone-color-selection">
                     <label class="title" for="uncompleted-milestone-color-selector">Uncompleted milestone color</label>
-                    <input type="color" name="uncompleted-milestone-color-selector" id="uncompleted-milestone-color-selector">
+                    <input type="color" name="uncompleted-milestone-color-selector"
+                        id="uncompleted-milestone-color-selector">
                 </div>
-                <hr/>
+                <hr />
                 <div class="download-buttons">
                     <a class="button" id="download-project">
                         <i class="fas fa-download"></i>
@@ -118,8 +113,10 @@ SOFTWARE.
                     </li>
                 </ol>
             </section>
-            <a class="fas fa-plus-square image-button button floating-button" id="new-milestone" title="Add new milestone"></a>
+            <a class="fas fa-plus-square image-button button floating-button" id="new-milestone"
+                title="Add new milestone"></a>
         </div>
     </main>
 </body>
+
 </html>
