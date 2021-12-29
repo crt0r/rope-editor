@@ -22,46 +22,34 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-import { renderRoadmap, setRoadmapColors } from './ui/editor/roadmap.js';
+import { renderRoadmap } from './ui/editor/roadmap.js';
 
-const createMilestoneMarkSelectorWithParentPseudoClass = (pseudoClass) => (
-    `.milestone${pseudoClass} .milestone-mark`
-);
-
-renderCanvas();
-
-function renderCanvas() {
-    renderRoadmap({
-        projectName: {
-            text: 'Example ProjectName',
-            justifyTo: 'start'
+renderRoadmap({
+    projectName: {
+        text: 'Example ProjectName',
+        justifyTo: 'start'
+    },
+    milestones: [
+        {
+            name: 'First Milestone',
+            description: 'Just a short example',
+            isCompleted: true
         },
-        milestones: [
-            {
-                name: 'First Milestone',
-                description: 'Just a short example',
-                isCompleted: true
-            },
-            {
-                name: 'Second Milestone',
-                description: 'Some text here',
-                isCompleted: false
-            },
-            {
-                name: 'Third Milestone',
-                description: 'More text here',
-                isCompleted: false
-            }
-        ]
-    });
-
-    $(createMilestoneMarkSelectorWithParentPseudoClass(':first-child'))
-        .connections({ to: `${createMilestoneMarkSelectorWithParentPseudoClass(':last-child')}` });
-
-    setRoadmapColors({
-        textColor: '#fff',
-        backgroundColor: '#000',
+        {
+            name: 'Second Milestone',
+            description: 'Some text here',
+            isCompleted: false
+        },
+        {
+            name: 'Third Milestone',
+            description: 'More text here',
+            isCompleted: false
+        }
+    ],
+    colors: {
+        textColor: 'white',
+        backgroundColor: 'black',
         completedMilestoneColor: '',
         uncompletedMilestoneColor: 'grey'
-    }, document.querySelector('connection'));
-}
+    }
+});

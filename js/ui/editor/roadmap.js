@@ -36,35 +36,41 @@ const defaultBackgroundColor = '#fffced';
 const defaultCompletedMilestoneColor = '#5a803e';
 const defaultUncompletedMilestoneColor = '#889e78';
 
-export function renderRoadmap({ projectName, milestones }) {
+const createMilestoneMarkSelectorWithParentPseudoClass = (pseudoClass) => (
+  `.milestone${pseudoClass} .milestone-mark`
+);
+
+export function renderRoadmap({ projectName, milestones, colors }) {
   renderProjectNameElement(projectName);
   renderMilestones(milestones);
+
+  $(createMilestoneMarkSelectorWithParentPseudoClass(':first-child'))
+    .connections({ to: `${createMilestoneMarkSelectorWithParentPseudoClass(':last-child')}` });
+
+  setRoadmapColors(colors);
 }
 
-export function setRoadmapColors({ 
-  textColor, backgroundColor, completedMilestoneColor, uncompletedMilestoneColor 
-}, previewCanvasMilestoneConnection) {
+function setRoadmapColors({ textColor, backgroundColor, completedMilestoneColor, uncompletedMilestoneColor }) {
   const projectNameElement = document.querySelector(projectNameElementName);
   const previewCanvas = document.querySelector(previewCanvasClassName);
   const previewCanvasPElements = document.querySelectorAll('.milestone-info p');
   const previewCanvasMilestoneIcons = document.querySelectorAll('.milestone-mark');
   const previewCanvasCompletedMilestoneIcons = document.querySelectorAll('.milestone-mark.completed');
   const previewCanvasUncompletedMilestoneIcons = document.querySelectorAll('.milestone-mark.uncompleted');
+  const previewCanvasMilestoneConnectonElement = document.querySelector('connection');
 
   setElementBackgroundColor(previewCanvas, backgroundColor);
   setElementColor(projectNameElement, textColor);
-  setElementBorderColor(previewCanvasMilestoneConnection, textColor);
+  setElementBorderColor(previewCanvasMilestoneConnectonElement, textColor);
 
-  previewCanvasPElements.forEach((element) => setElementColor(element, replaceIfEmpty(textColor, defaultTextColor)));
+  previewCanvasPElements.forEach((element) => setElementColor(element, textColor));
   previewCanvasMilestoneIcons
-    .forEach((element) => setElementBackgroundColor(element, replaceIfEmpty(backgroundColor, defaultBackgroundColor)));
+    .forEach((element) => setElementBackgroundColor(element, backgroundColor));
   previewCanvasCompletedMilestoneIcons
-    .forEach((element) => setElementColor(element, replaceIfEmpty(completedMilestoneColor, defaultCompletedMilestoneColor)));
+    .forEach((element) => setElementColor(element, completedMilestoneColor));
   previewCanvasUncompletedMilestoneIcons
-    .forEach((element) => setElementColor(element, replaceIfEmpty(uncompletedMilestoneColor, defaultUncompletedMilestoneColor)));
+    .forEach((element) => setElementColor(element, uncompletedMilestoneColor));
 }
-
-const replaceIfEmpty = (initialText, replaceWith) => initialText.trim().length <= 0 ? replaceWith : initialText;
 
 const setElementBorderColor = (element, colorStr) => element.style.borderColor = colorStr;
 
