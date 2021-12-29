@@ -36,15 +36,18 @@ const createMilestoneMarkSelectorWithParentPseudoClass = (pseudoClass) => (
 );
 
 export function renderRoadmap({ projectName, milestones, colors }) {
+    const connectionElement = document.querySelector('connection');
+
     if (projectName)
         renderProjectNameElement(projectName);
-    
+
     if (milestones)
         renderMilestones(milestones);
 
-    $(createMilestoneMarkSelectorWithParentPseudoClass(':first-child'))
-      .connections({ to: `${createMilestoneMarkSelectorWithParentPseudoClass(':last-child')}` });
-    
+    if (!connectionElement)
+        $(createMilestoneMarkSelectorWithParentPseudoClass(':first-child'))
+            .connections({ to: `${createMilestoneMarkSelectorWithParentPseudoClass(':last-child')}` });
+
     setRoadmapColors(colors);
 }
 
@@ -59,20 +62,20 @@ function setRoadmapColors({ textColor, backgroundColor, completedMilestoneColor,
 
     if (previewCanvas)
         setElementBackgroundColor(previewCanvas, backgroundColor);
-    
+
     if (projectNameElement)
         setElementColor(projectNameElement, textColor);
-    
+
     if (previewCanvasMilestoneConnectonElement)
         setElementBorderColor(previewCanvasMilestoneConnectonElement, textColor);
 
     previewCanvasPElements.forEach((element) => setElementColor(element, textColor));
     previewCanvasMilestoneIcons
-      .forEach((element) => setElementBackgroundColor(element, backgroundColor));
+        .forEach((element) => setElementBackgroundColor(element, backgroundColor));
     previewCanvasCompletedMilestoneIcons
-      .forEach((element) => setElementColor(element, completedMilestoneColor));
+        .forEach((element) => setElementColor(element, completedMilestoneColor));
     previewCanvasUncompletedMilestoneIcons
-      .forEach((element) => setElementColor(element, uncompletedMilestoneColor));
+        .forEach((element) => setElementColor(element, uncompletedMilestoneColor));
 }
 
 const setElementBorderColor = (element, colorStr) => element.style.borderColor = colorStr;
@@ -87,7 +90,7 @@ function renderProjectNameElement(projectName) {
 
     projectNameElement.innerText = projectName.text;
     projectNameElement.classList.value =
-      `${projectNameClassName}${projectName.justifyTo.length ? ' ' + justifyToClass : ''}`;
+        `${projectNameClassName}${projectName.justifyTo.length ? ' ' + justifyToClass : ''}`;
 }
 
 function renderMilestones(milestones) {
