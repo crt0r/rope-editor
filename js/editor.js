@@ -27,11 +27,49 @@ import { renderRoadmap } from './ui/editor/roadmap.js';
 import { Milestone } from './core/milestone.js';
 import { Roadmap } from './core/roadmap.js';
 
-const roadmap = new Roadmap({ projectName: 'Test Project', milestones: [
-    new Milestone({ name: 'First Milestone', description: 'This is the description', isCompleted: true }),
-    new Milestone({ name: 'Second Milestone' })
-] });
+const alignmentButtonsContainerSelector = '#alignment-control-buttons';
+const imageButtonPressedClassName = 'image-button-pressed';
 
-renderRoadmap(roadmap);
+const roadmap = new Roadmap({});
 
-console.log(EditorPanel.getCompletedMilestoneColor());
+EditorPanel.addEventListenerBySelector(EditorPanel.projectNameFieldSelector, 'input', event => (
+    (makeEventListenerWithRoadmapRenderer(() => roadmap.projectNameText = event.target.value))()
+));
+
+EditorPanel.addEventListenerBySelector(alignmentButtonsContainerSelector, 'click', event => (
+    (makeEventListenerWithRoadmapRenderer(function () {
+        switch (event.target.id) {
+            case 'align-left':
+                switchTextAlignmentButtonsColorsBySelector(EditorPanel.alignLeftButtonSelector, true);
+                roadmap.projectNameJustifyTo = 'start';
+                break;
+            case 'align-center':
+                switchTextAlignmentButtonsColorsBySelector(EditorPanel.alignCenterButtonSelector, true);
+                roadmap.projectNameJustifyTo = '';
+                break;
+            case 'align-right':
+                switchTextAlignmentButtonsColorsBySelector(EditorPanel.alignRightButtonSelector, true);
+                roadmap.projectNameJustifyTo = 'end';
+                break;
+        }
+    }))()
+));
+
+function switchTextAlignmentButtonsColorsBySelector(selector, isPressed) {
+    const button = document.querySelector(selector);
+    const otherButtons = document.querySelectorAll(`a.image-button:not(${selector})`);
+
+    console.log(otherButtons);
+
+    if (isPressed === true) {
+        button.classList.add(imageButtonPressedClassName);
+        otherButtons.forEach(button => button.classList.remove(imageButtonPressedClassName));
+    }
+}
+
+function makeEventListenerWithRoadmapRenderer(listener) {
+    return function () {
+        listener();
+        renderRoadmap(roadmap);
+    }
+}

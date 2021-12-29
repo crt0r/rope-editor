@@ -47,6 +47,54 @@ export class Roadmap {
         };
     }
 
+    get uncompletedMilestoneColor() {
+        return this.colors.uncompletedMilestoneColor;
+    }
+
+    get completedMilestoneColor() {
+        return this.colors.completedMilestoneColor;
+    }
+
+    get backgroundColor() {
+        return this.colors.backgroundColor;
+    }
+
+    get textColor() {
+        return this.colors.textColor;
+    }
+
+    get projectNameJustifyTo() {
+        return this.projectName.justifyTo;
+    }
+
+    get projectNameText() {
+        return this.projectName.text;
+    }
+
+    set uncompletedMilestoneColor(colorStr) {
+        this.colors.uncompletedMilestoneColor = colorStr;
+    }
+
+    set completedMilestoneColor(colorStr) {
+        this.colors.completedMilestoneColor = colorStr;
+    }
+
+    set backgroundColor(colorStr) {
+        this.colors.backgroundColor = colorStr;
+    }
+    
+    set textColor(colorStr) {
+        this.colors.textColor = colorStr;
+    }
+
+    set projectNameJustifyTo(justifyTo) {
+        this.projectName.justifyTo = justifyTo;
+    }
+
+    set projectNameText(name) {
+        this.projectName.text = name;
+    }
+
     addMilestone(milestone) {
         this.milestones.push(milestone);
     }
