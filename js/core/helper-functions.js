@@ -1,0 +1,1 @@
+export const replaceIfUndefined = (val, replaceWith) => val === undefined ? replaceWith : val;

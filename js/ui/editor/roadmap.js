@@ -31,45 +31,48 @@ const projectNameJustifyClassNamePart = `${projectNameClassName}-justify-`;
 const milestonesContainerClassName = 'project-milestones';
 const milestoneElementClassName = 'milestone';
 
-const defaultTextColor = '#783844';
-const defaultBackgroundColor = '#fffced';
-const defaultCompletedMilestoneColor = '#5a803e';
-const defaultUncompletedMilestoneColor = '#889e78';
-
 const createMilestoneMarkSelectorWithParentPseudoClass = (pseudoClass) => (
-  `.milestone${pseudoClass} .milestone-mark`
+    `.milestone${pseudoClass} .milestone-mark`
 );
 
 export function renderRoadmap({ projectName, milestones, colors }) {
-  renderProjectNameElement(projectName);
-  renderMilestones(milestones);
+    if (projectName)
+        renderProjectNameElement(projectName);
+    
+    if (milestones)
+        renderMilestones(milestones);
 
-  $(createMilestoneMarkSelectorWithParentPseudoClass(':first-child'))
-    .connections({ to: `${createMilestoneMarkSelectorWithParentPseudoClass(':last-child')}` });
-
-  setRoadmapColors(colors);
+    $(createMilestoneMarkSelectorWithParentPseudoClass(':first-child'))
+      .connections({ to: `${createMilestoneMarkSelectorWithParentPseudoClass(':last-child')}` });
+    
+    setRoadmapColors(colors);
 }
 
 function setRoadmapColors({ textColor, backgroundColor, completedMilestoneColor, uncompletedMilestoneColor }) {
-  const projectNameElement = document.querySelector(projectNameElementName);
-  const previewCanvas = document.querySelector(previewCanvasClassName);
-  const previewCanvasPElements = document.querySelectorAll('.milestone-info p');
-  const previewCanvasMilestoneIcons = document.querySelectorAll('.milestone-mark');
-  const previewCanvasCompletedMilestoneIcons = document.querySelectorAll('.milestone-mark.completed');
-  const previewCanvasUncompletedMilestoneIcons = document.querySelectorAll('.milestone-mark.uncompleted');
-  const previewCanvasMilestoneConnectonElement = document.querySelector('connection');
+    const projectNameElement = document.querySelector(projectNameElementName);
+    const previewCanvas = document.querySelector(previewCanvasClassName);
+    const previewCanvasPElements = document.querySelectorAll('.milestone-info p');
+    const previewCanvasMilestoneIcons = document.querySelectorAll('.milestone-mark');
+    const previewCanvasCompletedMilestoneIcons = document.querySelectorAll('.milestone-mark.completed');
+    const previewCanvasUncompletedMilestoneIcons = document.querySelectorAll('.milestone-mark.uncompleted');
+    const previewCanvasMilestoneConnectonElement = document.querySelector('connection');
 
-  setElementBackgroundColor(previewCanvas, backgroundColor);
-  setElementColor(projectNameElement, textColor);
-  setElementBorderColor(previewCanvasMilestoneConnectonElement, textColor);
+    if (previewCanvas)
+        setElementBackgroundColor(previewCanvas, backgroundColor);
+    
+    if (projectNameElement)
+        setElementColor(projectNameElement, textColor);
+    
+    if (previewCanvasMilestoneConnectonElement)
+        setElementBorderColor(previewCanvasMilestoneConnectonElement, textColor);
 
-  previewCanvasPElements.forEach((element) => setElementColor(element, textColor));
-  previewCanvasMilestoneIcons
-    .forEach((element) => setElementBackgroundColor(element, backgroundColor));
-  previewCanvasCompletedMilestoneIcons
-    .forEach((element) => setElementColor(element, completedMilestoneColor));
-  previewCanvasUncompletedMilestoneIcons
-    .forEach((element) => setElementColor(element, uncompletedMilestoneColor));
+    previewCanvasPElements.forEach((element) => setElementColor(element, textColor));
+    previewCanvasMilestoneIcons
+      .forEach((element) => setElementBackgroundColor(element, backgroundColor));
+    previewCanvasCompletedMilestoneIcons
+      .forEach((element) => setElementColor(element, completedMilestoneColor));
+    previewCanvasUncompletedMilestoneIcons
+      .forEach((element) => setElementColor(element, uncompletedMilestoneColor));
 }
 
 const setElementBorderColor = (element, colorStr) => element.style.borderColor = colorStr;
@@ -79,43 +82,43 @@ const setElementBackgroundColor = (element, colorStr) => element.style.backgroun
 const setElementColor = (element, colorStr) => element.style.color = colorStr;
 
 function renderProjectNameElement(projectName) {
-  const projectNameElement = document.querySelector(`${previewCanvasClassName} ${projectNameElementName}`);
-  const justifyToClass = projectNameJustifyClassNamePart + projectName.justifyTo;
+    const projectNameElement = document.querySelector(`${previewCanvasClassName} ${projectNameElementName}`);
+    const justifyToClass = projectNameJustifyClassNamePart + projectName.justifyTo;
 
-  projectNameElement.innerText = projectName.text;
-  projectNameElement.classList.value =
-    `${projectNameClassName}${projectName.justifyTo.length ? ' ' + justifyToClass : ''}`;
+    projectNameElement.innerText = projectName.text;
+    projectNameElement.classList.value =
+      `${projectNameClassName}${projectName.justifyTo.length ? ' ' + justifyToClass : ''}`;
 }
 
 function renderMilestones(milestones) {
-  const milestonesContainer = document.querySelector(`.${milestonesContainerClassName}`);
-  const milestonesElements = milestones.map(createMilestoneElement);
-  const milestonesHtmlString = milestonesElements.reduce((htmlStr, nextElement) => htmlStr + nextElement.outerHTML, '');
+    const milestonesContainer = document.querySelector(`.${milestonesContainerClassName}`);
+    const milestonesElements = milestones.map(createMilestoneElement);
+    const milestonesHtmlString = milestonesElements.reduce((htmlStr, nextElement) => htmlStr + nextElement.outerHTML, '');
 
-  milestonesContainer.innerHTML = milestonesHtmlString;
+    milestonesContainer.innerHTML = milestonesHtmlString;
 }
 
 function createMilestoneElement(milestone) {
-  const mileStoneElement = createElementWithClassList('div', milestoneElementClassName);
-  const completionClassName = milestone.isCompleted ? 'completed' : 'uncompleted';
+    const mileStoneElement = createElementWithClassList('div', milestoneElementClassName);
+    const completionClassName = milestone.isCompleted === true ? 'completed' : 'uncompleted';
 
-  mileStoneElement.innerHTML = `  
-  <div class="far fa-check-circle milestone-mark ${completionClassName}"></div>
-  <div class="milestone-info">
-      <p class="milestone-name">${milestone.name}</p>
-      <p class="milestone-description">${milestone.description}</p>
-  </div>
-  `;
+    mileStoneElement.innerHTML = `  
+    <div class="far fa-check-circle milestone-mark ${completionClassName}"></div>
+    <div class="milestone-info">
+        <p class="milestone-name">${milestone.name}</p>
+        <p class="milestone-description">${milestone.description}</p>
+    </div>
+    `;
 
-  return mileStoneElement;
+    return mileStoneElement;
 }
 
 function createElementWithClassList(elementName, ...classList) {
-  const element = createElement(elementName);
+    const element = createElement(elementName);
 
-  element.classList.add(...classList);
+    element.classList.add(...classList);
 
-  return element;
+    return element;
 }
 
 const createElement = (elementName) => document.createElement(elementName);

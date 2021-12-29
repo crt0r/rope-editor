@@ -22,14 +22,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-import { renderRoadmap } from './ui/editor/roadmap.js';
-import { Milestone } from './core/milestone.js';
-import { Roadmap } from './core/roadmap.js';
+import * as Helpers from './helper-functions.js';
 
-const roadmap = new Roadmap({ projectName: 'Test Project', milestones: [
-    new Milestone({ name: 'First Milestone', description: 'This is the description', isCompleted: true })
-] });
-
-roadmap.addMilestone(new Milestone({ name: 'Second Milestone' }));
-
-renderRoadmap(roadmap);
+export class Milestone {
+    constructor({ name, description, isCompleted }) {
+        this.name = Helpers.replaceIfUndefined(name, '');
+        this.description = Helpers.replaceIfUndefined(description, '');
+        this.isCompleted = Helpers.replaceIfUndefined(isCompleted, false);
+    }
+}
