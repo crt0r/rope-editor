@@ -1,0 +1,51 @@
+.milestone-modal {
+    display: grid;
+    place-items: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, .9);
+    z-index: 5;
+}
+
+.milestone-modal-content {
+    display: grid;
+    align-items: center;
+    gap: 1.4rem;
+    background-color: var(--higher-area-color);
+    margin: auto auto;
+    min-width: 55.8vw;
+    min-height: 62vh;
+    padding: 4rem 3.56rem;
+    min-height: 0;
+}
+
+.milestone-modal-content div {
+    display: grid;
+    align-items: center;
+    gap: .5rem;
+}
+
+.milestone-modal-content .completeness-section, .milestone-modal-content .buttons-section {
+    grid-auto-flow: column;
+}
+
+.milestone-modal-content .completeness-section {
+    margin-right: auto;
+}
+
+.milestone-modal-content .buttons-section {
+    width: 30.3rem;
+    justify-self: end;
+}
+
+.buttons-section .button-text-only {
+    font-size: inherit;
+    background-color: transparent;
+}
+
+.buttons-section .button-text-only:hover {
+    background-color: var(--secondary-color);
+}

@@ -38,7 +38,7 @@ export class Roadmap {
             text: Helpers.replaceIfUndefined(projectName, ''),
             justifyTo: Helpers.replaceIfUndefined(justifyProjectNameTo, '')
         };
-        this.milestones = milestones;
+        this.milestones = Helpers.replaceIfUndefined(milestones, []);
         this.colors = {
             textColor: Helpers.replaceIfUndefined(textColor, ''),
             backgroundColor: Helpers.replaceIfUndefined(backgroundColor, ''),

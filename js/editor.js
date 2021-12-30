@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+import { createAndRenderMilestoneModal } from './ui/editor/milestone-modal.js';
 import * as Helpers from './core/helper-functions.js';
 import * as EditorPanel from './ui/editor/panel.js';
 import { renderRoadmap } from './ui/editor/roadmap.js';
@@ -38,21 +39,22 @@ const roadmapDefaults = {
 const alignmentButtonsContainerSelector = '#alignment-control-buttons';
 const imageButtonPressedClassName = 'image-button-pressed';
 
-const roadmap = new Roadmap({
-    milestones: [
-        new Milestone({
-            name: 'First Milestone',
-            description: 'Some text here',
-            isCompleted: true
-        }),
-        new Milestone({
-            name: 'Second Milestone'
-        })
-    ]
-});
+const addMilestoneButton = document.querySelector('.button#new-milestone');
+const body = document.querySelector('body');
+
+const roadmap = new Roadmap({});
 
 renderRoadmap(roadmap);
 setColorPickersValuesToRoadmap();
+
+addMilestoneButton.addEventListener('click', () => {
+    createAndRenderMilestoneModal({
+        milestone: {},
+        mountPoint: body,
+        destinationRoadmap: roadmap,
+        onAfterClose: () => renderRoadmap(roadmap)
+    });
+});
 
 EditorPanel.addEventListenerBySelector(EditorPanel.projectNameFieldSelector, 'input', event => (
     (makeEventListenerWithRoadmapRenderer(() => roadmap.projectNameText = event.target.value))()

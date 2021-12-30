@@ -103,10 +103,14 @@ function renderMilestones(milestones) {
 
 function createMilestoneElement(milestone) {
     const mileStoneElement = createElementWithClassList('div', milestoneElementClassName);
-    const completionClassName = milestone.isCompleted === true ? 'completed' : 'uncompleted';
+    const completionClasses = milestone.isCompleted === true ? {
+        completionClassName: 'completed', icon: 'fa-check-circle'
+    } : {
+        completionClassName: 'uncompleted', icon: 'fa-circle'
+    };
 
     mileStoneElement.innerHTML = `  
-    <div class="far fa-check-circle milestone-mark ${completionClassName}"></div>
+    <div class="far ${completionClasses.icon} milestone-mark ${completionClasses.completionClassName}"></div>
     <div class="milestone-info">
         <p class="milestone-name">${milestone.name}</p>
         <p class="milestone-description">${milestone.description}</p>
