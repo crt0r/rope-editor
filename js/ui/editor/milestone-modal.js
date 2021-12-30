@@ -81,7 +81,6 @@ export function createAndRenderMilestoneModal({ milestone, milestoneIndex, mount
 
         if (name.trim()) {
             const newMilestone = new Milestone({ name, description, isCompleted: isChecked });
-            console.log(destinationRoadmap);
 
             if (milestoneIndex !== undefined)
                 destinationRoadmap.milestones[milestoneIndex] = newMilestone;

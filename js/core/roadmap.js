@@ -82,7 +82,7 @@ export class Roadmap {
     set backgroundColor(colorStr) {
         this.colors.backgroundColor = colorStr;
     }
-    
+
     set textColor(colorStr) {
         this.colors.textColor = colorStr;
     }
@@ -101,5 +101,9 @@ export class Roadmap {
 
     removeMilestoneAt(index) {
         this.milestones.splice(index, 1);
+    }
+
+    toJSONString() {
+        return JSON.stringify(this);
     }
 }

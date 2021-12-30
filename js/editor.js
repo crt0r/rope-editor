@@ -149,6 +149,18 @@ EditorPanel.addEventListenerBySelector('ol.clean', 'click', event => {
     }
 });
 
+EditorPanel.addEventListenerBySelector('#download-project', 'click', event => {
+    const roadmapJSONBlob = createRoadmapJSONBlob(roadmap.toJSONString());
+    const projectFileURL = createURLForBlob(roadmapJSONBlob);
+
+    event.target.href = projectFileURL;
+    event.target.download = 'roadmap.rope';
+});
+
+function createURLForBlob(blob) { return window.URL.createObjectURL(blob); }
+
+function createRoadmapJSONBlob(roadmapJSONStr) { return new Blob([roadmapJSONStr], { type: 'application/json' }); }
+
 function renderDynamicElements() {
     renderRoadmap(roadmap);
     renderRoadmapMilestones(roadmap);
