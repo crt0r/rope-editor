@@ -147,6 +147,7 @@ div.milestone-card {
 }
 
 p.card-title {
+    justify-self: start;
     font-family: 'Roboto' sans-serif;
     font-size: var(--regular-font-size);
     color: var(--main-color);
