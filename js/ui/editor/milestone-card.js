@@ -22,14 +22,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-export function createMilestoneCard(cardTitle) {
+export function createMilestoneCard(cardTitle, index) {
     const listElement = document.createElement('li');
 
     listElement.innerHTML = `
-    <div class="milestone-card">
+    <div class="milestone-card" data-index="${index}">
         <p class="card-title">${cardTitle}</p>
-        <a class="fas fa-edit button image-button" title="Edit milestone"></a>
-        <a class="fas fa-minus-square button image-button" title="Remove milestone"></a>
+        <a class="fas fa-edit button image-button" title="Edit milestone" id="edit"></a>
+        <a class="fas fa-minus-square button image-button" title="Remove milestone" id="remove"></a>
     </div>
     `;
 

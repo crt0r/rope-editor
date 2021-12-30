@@ -108,11 +108,34 @@ EditorPanel.addEventListenerBySelector(EditorPanel.uncompletedMilestoneColorSele
     }))()
 ));
 
+EditorPanel.addEventListenerBySelector('ol.clean', 'click', event => {
+    const targetId = event.target.id;
+    const targetParent = event.target.parentNode;
+    const targetMilestoneIndex = targetParent.dataset['index'];
+
+    let milestoneAction = '';
+
+    if (targetId === 'remove' || targetId === 'edit')
+        milestoneAction = targetId;
+
+    switch (milestoneAction) {
+        case 'remove':
+            roadmap.removeMilestoneAt(targetMilestoneIndex);
+            renderRoadmap(roadmap);
+            renderRoadmapMilestones(roadmap);
+            break;
+    }
+});
+
 function renderRoadmapMilestones(roadmap) {
     const mountPoint = document.querySelector('ol.clean');
+    let cardIndex = 0;
 
     mountPoint.innerHTML = '';
-    roadmap.milestones.forEach(milestone => mountPoint.append(createMilestoneCard(milestone.name)));
+    roadmap.milestones.forEach(milestone => {
+        mountPoint.append(createMilestoneCard(milestone.name, cardIndex));
+        cardIndex++;
+    });
 }
 
 function setColorPickersValuesToRoadmap() {

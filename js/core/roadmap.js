@@ -98,4 +98,8 @@ export class Roadmap {
     addMilestone(milestone) {
         this.milestones.push(milestone);
     }
+
+    removeMilestoneAt(index) {
+        this.milestones.splice(index, 1);
+    }
 }
