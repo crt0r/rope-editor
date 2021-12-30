@@ -54,10 +54,7 @@ addMilestoneButton.addEventListener('click', () => {
         milestone: {},
         mountPoint: body,
         destinationRoadmap: roadmap,
-        onAfterClose: () => {
-            renderRoadmap(roadmap);
-            renderRoadmapMilestones(roadmap);
-        }
+        onAfterClose: () => renderDynamicElements()
     });
 });
 
@@ -121,11 +118,24 @@ EditorPanel.addEventListenerBySelector('ol.clean', 'click', event => {
     switch (milestoneAction) {
         case 'remove':
             roadmap.removeMilestoneAt(targetMilestoneIndex);
-            renderRoadmap(roadmap);
-            renderRoadmapMilestones(roadmap);
+            renderDynamicElements()
+            break;
+        case 'edit':
+            createAndRenderMilestoneModal({
+                milestone: roadmap.milestones[targetMilestoneIndex],
+                milestoneIndex: targetMilestoneIndex,
+                mountPoint: body,
+                destinationRoadmap: roadmap,
+                onAfterClose: () => renderDynamicElements()
+            });
             break;
     }
 });
+
+function renderDynamicElements() {
+    renderRoadmap(roadmap);
+    renderRoadmapMilestones(roadmap);
+}
 
 function renderRoadmapMilestones(roadmap) {
     const mountPoint = document.querySelector('ol.clean');

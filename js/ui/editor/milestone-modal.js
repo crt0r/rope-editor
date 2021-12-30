@@ -25,7 +25,7 @@ SOFTWARE.
 import * as Helpers from '../../core/helper-functions.js'
 import { Milestone } from '../../core/milestone.js';
 
-export function createAndRenderMilestoneModal({ milestone, mountPoint, destinationRoadmap, onAfterClose }) {
+export function createAndRenderMilestoneModal({ milestone, milestoneIndex, mountPoint, destinationRoadmap, onAfterClose }) {
     const milestoneModalRootElement = document.createElement('div');
 
     const setTextFieldValue = (field, text) => field.value = Helpers.replaceIfUndefined(text, '');
@@ -80,7 +80,14 @@ export function createAndRenderMilestoneModal({ milestone, mountPoint, destinati
         const isChecked = milestoneCompletedCheckbox.checked;
 
         if (name.trim()) {
-            destinationRoadmap.addMilestone(new Milestone({ name, description, isCompleted: isChecked }));
+            const newMilestone = new Milestone({ name, description, isCompleted: isChecked });
+            console.log(destinationRoadmap);
+
+            if (milestoneIndex !== undefined)
+                destinationRoadmap.milestones[milestoneIndex] = newMilestone;
+            else
+                destinationRoadmap.addMilestone(newMilestone);
+            
             milestoneModalRootElement.remove();
             onAfterClose();
         }
