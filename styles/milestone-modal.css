@@ -36,6 +36,10 @@
     margin-right: auto;
 }
 
+.completeness-section *:hover {
+    cursor: pointer;
+}
+
 .milestone-modal-content .buttons-section {
     width: 30.3rem;
     justify-self: end;
