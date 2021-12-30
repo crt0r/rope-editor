@@ -26,7 +26,7 @@ main#root {
     display: grid;
     place-items: center;
     grid-template-rows: auto auto;
-    grid-gap: 100%;
+    grid-gap: 25vh;
 }
 
 .title {
@@ -80,4 +80,21 @@ a.button:not([class*="image-button"]) {
 .button:hover {
     background-color: var(--secondary-color);
     color: var(--background-color);
+}
+
+footer {
+    margin: 12rem 0 6rem 0;
+    display: grid;
+    grid-template-rows: auto auto;
+    place-items: center;
+}
+
+footer p.copyright {
+    color: var(--main-color);
+}
+
+footer a.gitlab-link {
+    color: var(--main-color);
+    display: inline-block;
+    width: 10rem;
 }
