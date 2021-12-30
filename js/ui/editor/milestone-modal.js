@@ -9,7 +9,7 @@ export function createAndRenderMilestoneModal({ milestone, mountPoint, destinati
 
     milestoneModalRootElement.classList.add('milestone-modal');
     milestoneModalRootElement.innerHTML = `
-    <form>
+    <form onsubmit="return false;">
         <div class="milestone-modal-content">
             <div class="name-section">
                 <label for="milestone-name" class="title">Milestone name</label>
@@ -49,8 +49,7 @@ export function createAndRenderMilestoneModal({ milestone, mountPoint, destinati
         milestoneModalRootElement.remove();
     });
 
-    saveButton.addEventListener('click', event => {
-        event.preventDefault();
+    saveButton.addEventListener('click', () => {
 
         const name = milestoneNameField.value;
         const description = milestoneDescriptionField.value;
