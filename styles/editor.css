@@ -136,7 +136,7 @@ ol.clean {
 
 div.milestone-card {
     display: grid;
-    grid-template-columns: 4fr .5fr .5fr;
+    grid-template-columns: .1fr 4fr .5fr .5fr;
     place-items: center;
     gap: 1.6rem;
     background-color: var(--higher-area-color);
@@ -146,10 +146,18 @@ div.milestone-card {
     margin: 1.25rem 8.75rem 1.25rem 0;
 }
 
+div.milestone-card:hover {
+    cursor: grab;
+}
+
 p.card-title {
     justify-self: start;
     font-family: 'Roboto' sans-serif;
     font-size: var(--regular-font-size);
     color: var(--main-color);
     word-wrap: break-word;
+}
+
+div.milestone-card .vertical-arrows {
+    color: var(--main-color);
 }

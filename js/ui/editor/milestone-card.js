@@ -27,6 +27,7 @@ export function createMilestoneCard(cardTitle, index) {
 
     listElement.innerHTML = `
     <div class="milestone-card" data-index="${index}">
+        <div class="fas fa-arrows-alt-v vertical-arrows"></div>
         <p class="card-title">${cardTitle}</p>
         <a class="fas fa-edit button image-button" title="Edit milestone" id="edit"></a>
         <a class="fas fa-minus-square button image-button" title="Remove milestone" id="remove"></a>
