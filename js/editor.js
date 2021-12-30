@@ -42,11 +42,28 @@ const imageButtonPressedClassName = 'image-button-pressed';
 
 const addMilestoneButton = document.querySelector('.button#new-milestone');
 const body = document.querySelector('body');
+const milestonesCardsList = document.querySelector('.clean');
 
 const roadmap = new Roadmap({});
 
-renderRoadmap(roadmap);
-renderRoadmapMilestones(roadmap);
+Sortable.create(milestonesCardsList, {
+    animation: 200,
+    onEnd: event => {
+        const oldIndex = event.oldIndex;
+        const newIndex = event.newIndex;
+        const milestonesCopy = [...roadmap.milestones];
+        const itemData = milestonesCopy[oldIndex];
+
+        milestonesCopy.splice(oldIndex, 1);
+        milestonesCopy.splice(newIndex, 0, itemData);
+
+        roadmap.milestones = milestonesCopy;
+
+        renderDynamicElements();
+    }
+});
+
+renderDynamicElements();
 setColorPickersValuesToRoadmap();
 
 addMilestoneButton.addEventListener('click', () => {
