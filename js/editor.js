@@ -28,6 +28,7 @@ import * as EditorPanel from './ui/editor/panel.js';
 import { renderRoadmap } from './ui/editor/roadmap.js';
 import { Milestone } from './core/milestone.js';
 import { Roadmap } from './core/roadmap.js';
+import { createMilestoneCard } from './ui/editor/milestone-card.js';
 
 const roadmapDefaults = {
     textColor: '#783844',
@@ -45,6 +46,7 @@ const body = document.querySelector('body');
 const roadmap = new Roadmap({});
 
 renderRoadmap(roadmap);
+renderRoadmapMilestones(roadmap);
 setColorPickersValuesToRoadmap();
 
 addMilestoneButton.addEventListener('click', () => {
@@ -52,7 +54,10 @@ addMilestoneButton.addEventListener('click', () => {
         milestone: {},
         mountPoint: body,
         destinationRoadmap: roadmap,
-        onAfterClose: () => renderRoadmap(roadmap)
+        onAfterClose: () => {
+            renderRoadmap(roadmap);
+            renderRoadmapMilestones(roadmap);
+        }
     });
 });
 
@@ -102,6 +107,13 @@ EditorPanel.addEventListenerBySelector(EditorPanel.uncompletedMilestoneColorSele
         roadmap.uncompletedMilestoneColor = event.target.value;
     }))()
 ));
+
+function renderRoadmapMilestones(roadmap) {
+    const mountPoint = document.querySelector('ol.clean');
+
+    mountPoint.innerHTML = '';
+    roadmap.milestones.forEach(milestone => mountPoint.append(createMilestoneCard(milestone.name)));
+}
 
 function setColorPickersValuesToRoadmap() {
     const getColorPickerBySelector = (selector) => document.querySelector(selector);
