@@ -31,28 +31,33 @@ const projectNameJustifyClassNamePart = `${projectNameClassName}-justify-`;
 const milestonesContainerClassName = 'project-milestones';
 const milestoneElementClassName = 'milestone';
 
-const createMilestoneMarkSelectorWithParentPseudoClass = (pseudoClass) => (
-    `.milestone${pseudoClass} .milestone-mark`
-);
-
 export function renderRoadmap({ projectName, milestones, colors }) {
-    const connectionElements = document.querySelectorAll('connection');
-
     if (projectName)
         renderProjectNameElement(projectName);
 
     if (milestones)
         renderMilestones(milestones);
 
+    renderMilestonesConnectionLine();
+    setRoadmapColors(colors);
+}
+
+export function renderMilestonesConnectionLine() {
+    const connectionElements = document.querySelectorAll('connection');
+    const firstMilestonePseudoClass = ':first-child';
+    const lastMilestonePseudoClass = ':last-child';
+
+    const makeMilestoneMarkSelectorWithParentPseudoClass = (pseudoClass) => (
+        `.milestone${pseudoClass} .milestone-mark`
+    );
+
     // The JQuery Connections module creates a new element each time, so we need to remove the existing ones.
     if (connectionElements.length > 0)
         connectionElements[0].remove();
 
-    // Connect the first and the last milestones on the preview canvas with a line.
-    $(createMilestoneMarkSelectorWithParentPseudoClass(':first-child'))
-        .connections({ to: `${createMilestoneMarkSelectorWithParentPseudoClass(':last-child')}` });
-
-    setRoadmapColors(colors);
+    $(makeMilestoneMarkSelectorWithParentPseudoClass(firstMilestonePseudoClass)).connections({
+        to: `${makeMilestoneMarkSelectorWithParentPseudoClass(lastMilestonePseudoClass)}`
+    });
 }
 
 function setRoadmapColors({ textColor, backgroundColor, completedMilestoneColor, uncompletedMilestoneColor }) {

@@ -33,10 +33,6 @@ const backgroundColorSelector = 'input#background-color-selector';
 const completedMilestoneColorSelector = 'input#completed-milestone-color-selector';
 const uncompletedMilestoneColorSelector = 'input#uncompleted-milestone-color-selector';
 
-const addEventListenerBySelector = (selector, listenerName, listener) => (
-    document.querySelector(selector).addEventListener(listenerName, listener)
-);
-
 const getUncompletedMilestoneColor = () => getElementValueBySelector(uncompletedMilestoneColorSelector);
 
 const getCompletedMilestoneColor = () => getElementValueBySelector(completedMilestoneColorSelector);
@@ -60,7 +56,6 @@ export {
     getBackgroundColor,
     getCompletedMilestoneColor,
     getUncompletedMilestoneColor,
-    addEventListenerBySelector,
     alignLeftButtonSelector,
     alignCenterButtonSelector,
     alignRightButtonSelector

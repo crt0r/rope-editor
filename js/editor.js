@@ -26,7 +26,6 @@ import { createAndRenderMilestoneModal } from './ui/editor/milestone-modal.js';
 import * as Helpers from './core/helper-functions.js';
 import * as EditorPanel from './ui/editor/panel.js';
 import { renderRoadmap } from './ui/editor/roadmap.js';
-import { Milestone } from './core/milestone.js';
 import { Roadmap } from './core/roadmap.js';
 import { createMilestoneCard } from './ui/editor/milestone-card.js';
 
@@ -40,89 +39,91 @@ const roadmapDefaults = {
 const alignmentButtonsContainerSelector = '#alignment-control-buttons';
 const imageButtonPressedClassName = 'image-button-pressed';
 
-const addMilestoneButton = document.querySelector('.button#new-milestone');
 const body = document.querySelector('body');
 const milestonesCardsList = document.querySelector('.clean');
 
+// We use this initially empty roadmap to hold the data that a user adds dynamically.
 const roadmap = new Roadmap({});
 
 Sortable.create(milestonesCardsList, {
     animation: 200,
-    onEnd: event => {
-        const oldIndex = event.oldIndex;
-        const newIndex = event.newIndex;
-        const milestonesCopy = [...roadmap.milestones];
-        const itemData = milestonesCopy[oldIndex];
-
-        milestonesCopy.splice(oldIndex, 1);
-        milestonesCopy.splice(newIndex, 0, itemData);
-
-        roadmap.milestones = milestonesCopy;
-
-        renderDynamicElements();
-    }
+    onEnd: reorderRoadmapMilestones
 });
+
+function reorderRoadmapMilestones(event) {
+    const oldIndex = event.oldIndex;
+    const newIndex = event.newIndex;
+    const milestonesCopy = [...roadmap.milestones];
+    const itemData = milestonesCopy[oldIndex];
+
+    milestonesCopy.splice(oldIndex, 1);
+    milestonesCopy.splice(newIndex, 0, itemData);
+
+    roadmap.milestones = milestonesCopy;
+
+    renderDynamicElements();
+}
 
 renderDynamicElements();
 setColorPickersValuesToRoadmap();
 
-addMilestoneButton.addEventListener('click', () => {
+Helpers.addEventListenerBySelector('.button#new-milestone', 'click', () => {
     createAndRenderMilestoneModal({
-        milestone: {},
+        milestoneToOpenModalWith: {},
         mountPoint: body,
         destinationRoadmap: roadmap,
         onAfterClose: () => renderDynamicElements()
     });
 });
 
-EditorPanel.addEventListenerBySelector(EditorPanel.projectNameFieldSelector, 'input', event => (
+Helpers.addEventListenerBySelector(EditorPanel.projectNameFieldSelector, 'input', event => (
     (makeEventListenerWithRoadmapRenderer(() => roadmap.projectNameText = event.target.value))()
 ));
 
-EditorPanel.addEventListenerBySelector(alignmentButtonsContainerSelector, 'click', event => (
+Helpers.addEventListenerBySelector(alignmentButtonsContainerSelector, 'click', event => (
     (makeEventListenerWithRoadmapRenderer(function () {
         switch (event.target.id) {
             case 'align-left':
-                switchTextAlignmentButtonsColorsBySelector(EditorPanel.alignLeftButtonSelector, true);
+                switchTextAlignmentButtonsColorsBySelector(EditorPanel.alignLeftButtonSelector);
                 roadmap.projectNameJustifyTo = 'start';
                 break;
             case 'align-center':
-                switchTextAlignmentButtonsColorsBySelector(EditorPanel.alignCenterButtonSelector, true);
+                switchTextAlignmentButtonsColorsBySelector(EditorPanel.alignCenterButtonSelector);
                 roadmap.projectNameJustifyTo = '';
                 break;
             case 'align-right':
-                switchTextAlignmentButtonsColorsBySelector(EditorPanel.alignRightButtonSelector, true);
+                switchTextAlignmentButtonsColorsBySelector(EditorPanel.alignRightButtonSelector);
                 roadmap.projectNameJustifyTo = 'end';
                 break;
         }
     }))()
 ));
 
-EditorPanel.addEventListenerBySelector(EditorPanel.textColorSelector, 'input', event => (
+Helpers.addEventListenerBySelector(EditorPanel.textColorSelector, 'input', event => (
     (makeEventListenerWithRoadmapRenderer(function () {
         roadmap.textColor = event.target.value;
     }))()
 ));
 
-EditorPanel.addEventListenerBySelector(EditorPanel.backgroundColorSelector, 'input', event => (
+Helpers.addEventListenerBySelector(EditorPanel.backgroundColorSelector, 'input', event => (
     (makeEventListenerWithRoadmapRenderer(function () {
         roadmap.backgroundColor = event.target.value;
     }))()
 ));
 
-EditorPanel.addEventListenerBySelector(EditorPanel.completedMilestoneColorSelector, 'input', event => (
+Helpers.addEventListenerBySelector(EditorPanel.completedMilestoneColorSelector, 'input', event => (
     (makeEventListenerWithRoadmapRenderer(function () {
         roadmap.completedMilestoneColor = event.target.value;
     }))()
 ));
 
-EditorPanel.addEventListenerBySelector(EditorPanel.uncompletedMilestoneColorSelector, 'input', event => (
+Helpers.addEventListenerBySelector(EditorPanel.uncompletedMilestoneColorSelector, 'input', event => (
     (makeEventListenerWithRoadmapRenderer(function () {
         roadmap.uncompletedMilestoneColor = event.target.value;
     }))()
 ));
 
-EditorPanel.addEventListenerBySelector('ol.clean', 'click', event => {
+Helpers.addEventListenerBySelector('ol.clean', 'click', event => {
     const targetId = event.target.id;
     const targetParent = event.target.parentNode;
     const targetMilestoneIndex = targetParent.dataset['index'];
@@ -139,8 +140,8 @@ EditorPanel.addEventListenerBySelector('ol.clean', 'click', event => {
             break;
         case 'edit':
             createAndRenderMilestoneModal({
-                milestone: roadmap.milestones[targetMilestoneIndex],
-                milestoneIndex: targetMilestoneIndex,
+                milestoneToOpenModalWith: roadmap.milestones[targetMilestoneIndex],
+                editableMilestoneIndex: targetMilestoneIndex,
                 mountPoint: body,
                 destinationRoadmap: roadmap,
                 onAfterClose: () => renderDynamicElements()
@@ -149,7 +150,7 @@ EditorPanel.addEventListenerBySelector('ol.clean', 'click', event => {
     }
 });
 
-EditorPanel.addEventListenerBySelector('#download-project', 'click', event => {
+Helpers.addEventListenerBySelector('#download-project', 'click', event => {
     const roadmapJSONBlob = createRoadmapJSONBlob(roadmap.toJSONString());
     const projectFileURL = createURLForBlob(roadmapJSONBlob);
 
@@ -193,14 +194,12 @@ function setColorPickersValuesToRoadmap() {
         Helpers.replaceIfEmpty(roadmap.uncompletedMilestoneColor, roadmapDefaults.uncompletedMilestoneColor);
 }
 
-function switchTextAlignmentButtonsColorsBySelector(selector, isPressed) {
+function switchTextAlignmentButtonsColorsBySelector(selector) {
     const button = document.querySelector(selector);
     const otherButtons = document.querySelectorAll(`a.image-button:not(${selector})`);
 
-    if (isPressed === true) {
-        button.classList.add(imageButtonPressedClassName);
-        otherButtons.forEach(button => button.classList.remove(imageButtonPressedClassName));
-    }
+    button.classList.add(imageButtonPressedClassName);
+    otherButtons.forEach(button => button.classList.remove(imageButtonPressedClassName));
 }
 
 function makeEventListenerWithRoadmapRenderer(listener) {

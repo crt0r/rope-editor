@@ -22,6 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+export const addEventListenerBySelector = (selector, listenerName, listener) => (
+    document.querySelector(selector).addEventListener(listenerName, listener)
+);
+
 export const replaceIfUndefined = (val, replaceWith) => replaceIf(val, replaceWith, val === undefined);
 
 export const replaceIfEmpty = (val, replaceWith) => replaceIf(val, replaceWith, val.trim() === '');
