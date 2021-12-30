@@ -55,6 +55,12 @@ export function createAndRenderMilestoneModal({
 
     const setTextFieldValue = (field, text) => field.value = Helpers.replaceIfUndefined(text, '');
     const setCheckboxValue = (checkbox, isChecked) => checkbox.checked = Helpers.replaceIfUndefined(isChecked, false);
+    const getNameAndDescriptionFromFields = () => {
+        const name = milestoneNameField.value;
+        const description = milestoneDescriptionField.value;
+
+        return { name, description }
+    };
 
     milestoneModalRootElement.classList.add('milestone-modal');
     milestoneModalRootElement.innerHTML = modalHTMLString;
@@ -73,12 +79,21 @@ export function createAndRenderMilestoneModal({
     cancelButton.addEventListener('click', event => {
         event.preventDefault();
 
-        milestoneModalRootElement.remove();
+        const { name, description } = getNameAndDescriptionFromFields();
+
+        if (name || description) {
+            Helpers.requestUserConfirmation({ // We need user confirmation to prevent their data loss.
+                textMessage: Helpers.defaultMessageBeforeLeave,
+                onConfirm: () => milestoneModalRootElement.remove()
+            });
+        }
+        else {
+            milestoneModalRootElement.remove();
+        }
     });
 
     saveButton.addEventListener('click', () => {
-        const name = milestoneNameField.value;
-        const description = milestoneDescriptionField.value;
+        const { name, description } = getNameAndDescriptionFromFields();
         const isChecked = milestoneCompletedCheckbox.checked;
 
         if (name.trim()) {

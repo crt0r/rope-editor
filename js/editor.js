@@ -45,6 +45,8 @@ const milestonesCardsList = document.querySelector('.clean');
 // We use this initially empty roadmap to hold the data that a user adds dynamically.
 const roadmap = new Roadmap({});
 
+window.onbeforeunload = (event) => event.returnValue = Helpers.defaultMessageBeforeLeave;
+
 Sortable.create(milestonesCardsList, {
     animation: 200,
     onEnd: reorderRoadmapMilestones

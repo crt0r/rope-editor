@@ -22,12 +22,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-export const addEventListenerBySelector = (selector, listenerName, listener) => (
+const defaultMessageBeforeLeave = 'All unsaved changes will be lost if you leave. Proceed?';
+
+function requestUserConfirmation({ textMessage, onCancel, onConfirm }) {
+    const shouldReload = confirm(textMessage);
+
+    if (shouldReload)
+        onConfirm();
+
+    if (!shouldReload)
+        onCancel();
+}
+
+const addEventListenerBySelector = (selector, listenerName, listener) => (
     document.querySelector(selector).addEventListener(listenerName, listener)
 );
 
-export const replaceIfUndefined = (val, replaceWith) => replaceIf(val, replaceWith, val === undefined);
+const replaceIfUndefined = (val, replaceWith) => replaceIf(val, replaceWith, val === undefined);
 
-export const replaceIfEmpty = (val, replaceWith) => replaceIf(val, replaceWith, val.trim() === '');
+const replaceIfEmpty = (val, replaceWith) => replaceIf(val, replaceWith, val.trim() === '');
 
 const replaceIf = (val, replaceWith, condition) => condition ? replaceWith : val;
+
+export {
+    defaultMessageBeforeLeave,
+    requestUserConfirmation,
+    addEventListenerBySelector,
+    replaceIfUndefined,
+    replaceIfEmpty
+}
