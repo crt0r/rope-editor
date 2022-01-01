@@ -62,6 +62,12 @@ if (uploadedRoadmap) {
 // Without prompting an unload confirmation, the user can lose their data.
 window.onbeforeunload = event => event.returnValue = Helpers.defaultMessageBeforeLeave;
 
+// [BLINK-HISTORY#1-2] For more, see [BLINK-HISTORY#1-1] at "index.js".
+window.onpopstate = () => {
+    history.pushState(null, 'Rope', '/');
+    location.reload();
+}
+
 /*
 The JQuery Connections module creates a line with fixed coordinates.
 We draw that line while rendering a roadmap.
