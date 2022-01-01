@@ -60,6 +60,7 @@ input[type="text"] {
 input[type="color"] {
     background-color: var(--higher-area-color);
     border-radius: .5rem;
+    border: 1px solid var(--main-color);
     padding: .4rem 2rem .4rem 2rem;
     min-width: 9.9rem;
     min-height: 2rem;
