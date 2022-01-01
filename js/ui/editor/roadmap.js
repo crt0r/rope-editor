@@ -42,7 +42,7 @@ export function renderRoadmap({ projectName, milestones, colors }) {
     setRoadmapColors(colors);
 }
 
-export function renderMilestonesConnectionLine() {
+function renderMilestonesConnectionLine() {
     const connectionElements = document.querySelectorAll('connection');
     const firstMilestonePseudoClass = ':first-child';
     const lastMilestonePseudoClass = ':last-child';

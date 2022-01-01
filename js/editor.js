@@ -22,10 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+import * as RopeStorage from './data/storage.js';
 import { createAndRenderMilestoneModal } from './ui/editor/milestone-modal.js';
 import * as Helpers from './core/helper-functions.js';
 import * as EditorPanel from './ui/editor/panel.js';
-import { renderRoadmap, renderMilestonesConnectionLine } from './ui/editor/roadmap.js';
+import { renderRoadmap } from './ui/editor/roadmap.js';
 import { Roadmap } from './core/roadmap.js';
 import { createMilestoneCard } from './ui/editor/milestone-card.js';
 
@@ -43,7 +44,20 @@ const body = document.querySelector('body');
 const milestonesCardsList = document.querySelector('.clean');
 
 // We use this initially empty roadmap to hold the data that a user adds dynamically.
-const roadmap = new Roadmap({});
+let roadmap = new Roadmap({});
+const uploadedRoadmap = RopeStorage.getUploadedRoadmap();
+
+if (uploadedRoadmap) {
+    roadmap = Roadmap.fromJSONString(uploadedRoadmap);
+
+    /*
+    The sessionStorage keeps data as long as the browser tab is open.
+    The user can move backward in the current tab's history stack.
+    If we don't remove the uploaded roadmap manually after using it, the "Create New Roadmap" button on the main page
+    will open the editor with the previously uploaded roadmap.
+    */
+    RopeStorage.removeUploadedRoadmap();
+}
 
 // Without prompting an unload confirmation, the user can lose their data.
 window.onbeforeunload = event => event.returnValue = Helpers.defaultMessageBeforeLeave;
@@ -54,7 +68,7 @@ We draw that line while rendering a roadmap.
 If the user resizes the browser window, the line will stay at its initial coordinates.
 That's why we need to re-render it after resizing a window.
 */
-window.onresize = () => renderMilestonesConnectionLine();
+window.onresize = () => renderRoadmap(roadmap);
 
 Sortable.create(milestonesCardsList, {
     animation: 200,
@@ -76,6 +90,7 @@ function reorderRoadmapMilestones(event) {
 }
 
 renderDynamicElements();
+setPanelProjectNameFieldValueToRoadmap();
 setColorPickersValuesToRoadmap();
 
 Helpers.addEventListenerBySelector('.button#new-milestone', 'click', () => {
@@ -187,6 +202,12 @@ function renderRoadmapMilestones(roadmap) {
         mountPoint.append(createMilestoneCard(milestone.name, cardIndex));
         cardIndex++;
     });
+}
+
+function setPanelProjectNameFieldValueToRoadmap() {
+    const projectNameField = document.querySelector('input[type="text"]#project-name-field');
+
+    projectNameField.value = roadmap.projectNameText;
 }
 
 function setColorPickersValuesToRoadmap() {

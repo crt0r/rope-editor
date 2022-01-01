@@ -106,4 +106,18 @@ export class Roadmap {
     toJSONString() {
         return JSON.stringify(this);
     }
+
+    static fromJSONString(jsonStr) {
+        const projectInfo = JSON.parse(jsonStr);
+
+        return new Roadmap({
+            projectName: projectInfo.projectName.text,
+            justifyProjectNameTo: projectInfo.projectName.justifyTo,
+            milestones: projectInfo.milestones,
+            textColor: projectInfo.colors.textColor,
+            backgroundColor: projectInfo.colors.backgroundColor,
+            completedMilestoneColor: projectInfo.colors.completedMilestoneColor,
+            uncompletedMilestoneColor: projectInfo.colors.uncompletedMilestoneColor
+        });
+    }
 }

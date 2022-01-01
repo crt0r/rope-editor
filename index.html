@@ -23,6 +23,7 @@ SOFTWARE.
 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,8 +33,10 @@ SOFTWARE.
     <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
     <script defer src="https://kit.fontawesome.com/d6558207b9.js" crossorigin="anonymous"></script>
+    <script defer src="./js/index.js" type="module"></script>
     <title>Rope</title>
 </head>
+
 <body>
     <main id="root">
         <h1 class="title">
@@ -44,17 +47,22 @@ SOFTWARE.
                 <i class="far fa-plus-square"></i>
                 Create New Project
             </a>
-            <a class="button secondary-action" id="open-existing-project">
-                <i class="far fa-folder-open"></i>
-                Open Existing Project
-            </a>
+            <div class="choose-file-controls">
+                <a class="button secondary-action" id="open-existing-project">
+                    <i class="far fa-folder-open"></i>
+                    Open Existing Project
+                </a>
+                <input type="file" id="file-picker" accept=".rope">
+            </div>
         </section>
     </main>
     <footer>
         <p class="copyright">Copyright (c) 2021 Timofey Chuchkanov</p>
         <a href="https://gitlab.com/Rope-App" class="gitlab-link">
-            <img src="https://about.gitlab.com/images/press/logo/svg/gitlab-logo-1-color-black-rgb.svg" alt="Gitlab logo">
+            <img src="https://about.gitlab.com/images/press/logo/svg/gitlab-logo-1-color-black-rgb.svg"
+                alt="Gitlab logo">
         </a>
     </footer>
 </body>
+
 </html>

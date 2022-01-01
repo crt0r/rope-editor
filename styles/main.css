@@ -99,3 +99,15 @@ footer a.gitlab-link {
     display: inline-block;
     width: 10rem;
 }
+
+div.choose-file-controls {
+    position: relative;
+}
+
+input[type="file"]#file-picker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    z-index: -1;
+}
