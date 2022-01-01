@@ -25,7 +25,7 @@ SOFTWARE.
 import { createAndRenderMilestoneModal } from './ui/editor/milestone-modal.js';
 import * as Helpers from './core/helper-functions.js';
 import * as EditorPanel from './ui/editor/panel.js';
-import { renderRoadmap } from './ui/editor/roadmap.js';
+import { renderRoadmap, renderMilestonesConnectionLine } from './ui/editor/roadmap.js';
 import { Roadmap } from './core/roadmap.js';
 import { createMilestoneCard } from './ui/editor/milestone-card.js';
 
@@ -45,7 +45,16 @@ const milestonesCardsList = document.querySelector('.clean');
 // We use this initially empty roadmap to hold the data that a user adds dynamically.
 const roadmap = new Roadmap({});
 
-window.onbeforeunload = (event) => event.returnValue = Helpers.defaultMessageBeforeLeave;
+// Without prompting an unload confirmation, the user can lose their data.
+window.onbeforeunload = event => event.returnValue = Helpers.defaultMessageBeforeLeave;
+
+/*
+The JQuery Connections module creates a line with fixed coordinates.
+We draw that line while rendering a roadmap.
+If the user resizes the browser window, the line will stay at its initial coordinates.
+That's why we need to re-render it after resizing a window.
+*/
+window.onresize = () => renderMilestonesConnectionLine();
 
 Sortable.create(milestonesCardsList, {
     animation: 200,
