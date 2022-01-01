@@ -61,6 +61,7 @@ if (uploadedRoadmap) {
 
 renderDynamicElements();
 setPanelProjectNameFieldValueToRoadmap();
+setPanelProjectNameButtonStateToRoadmap();
 setColorPickersValuesToRoadmap();
 
 // Without prompting an unload confirmation, the user can lose their data.
@@ -222,6 +223,20 @@ function setPanelProjectNameFieldValueToRoadmap() {
     const projectNameField = document.querySelector('input[type="text"]#project-name-field');
 
     projectNameField.value = roadmap.projectNameText;
+}
+
+function setPanelProjectNameButtonStateToRoadmap() {
+    switch (roadmap.projectNameJustifyTo) {
+        case 'start':
+            switchTextAlignmentButtonsColorsBySelector(EditorPanel.alignLeftButtonSelector);
+            break;
+        case '':
+            switchTextAlignmentButtonsColorsBySelector(EditorPanel.alignCenterButtonSelector);
+            break;
+        case 'end':
+            switchTextAlignmentButtonsColorsBySelector(EditorPanel.alignRightButtonSelector);
+            break;
+    }
 }
 
 function setColorPickersValuesToRoadmap() {
