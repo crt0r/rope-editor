@@ -59,8 +59,12 @@ if (uploadedRoadmap) {
     RopeStorage.removeUploadedRoadmap();
 }
 
+renderDynamicElements();
+setPanelProjectNameFieldValueToRoadmap();
+setColorPickersValuesToRoadmap();
+
 // Without prompting an unload confirmation, the user can lose their data.
-window.onbeforeunload = event => event.returnValue = Helpers.defaultMessageBeforeLeave;
+window.onbeforeunload = () => event.returnValue = Helpers.defaultMessageBeforeLeave;
 
 // [BLINK-HISTORY#1-2] For more, see [BLINK-HISTORY#1-1] at "index.js".
 window.onpopstate = () => {
@@ -75,6 +79,14 @@ If the user resizes the browser window, the line will stay at its initial coordi
 That's why we need to re-render it after resizing a window.
 */
 window.onresize = () => renderRoadmap(roadmap);
+
+/*
+[FIREFOX-MILESTONES-CONNECTION#1]
+
+When there are more than 3 milestones in the roadmap, firefox initially draws a line that is shorter than needed.
+A window resize can fix this since it triggers the re-rendering of the roadmap.
+*/
+setTimeout(() => window.dispatchEvent(new Event('resize')), 200);
 
 Sortable.create(milestonesCardsList, {
     animation: 200,
@@ -94,10 +106,6 @@ function reorderRoadmapMilestones(event) {
 
     renderDynamicElements();
 }
-
-renderDynamicElements();
-setPanelProjectNameFieldValueToRoadmap();
-setColorPickersValuesToRoadmap();
 
 Helpers.addEventListenerBySelector('.button#new-milestone', 'click', () => {
     createAndRenderMilestoneModal({
