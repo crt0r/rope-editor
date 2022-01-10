@@ -30,6 +30,7 @@ SOFTWARE.
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
     <script defer src="https://kit.fontawesome.com/d6558207b9.js" crossorigin="anonymous"></script>
@@ -63,6 +64,23 @@ SOFTWARE.
                 alt="Gitlab logo">
         </a>
     </footer>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-analytics.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyDX7ed_xYRYaZaawHL5LNm93Ae9EHmPJ58",
+          authDomain: "rope-editor.firebaseapp.com",
+          projectId: "rope-editor",
+          storageBucket: "rope-editor.appspot.com",
+          messagingSenderId: "646497379797",
+          appId: "1:646497379797:web:82125dac5c1d3b7d86495c",
+          measurementId: "G-D5BCJ9V8VP"
+        };
+      
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+      </script>
 </body>
 
 </html>
