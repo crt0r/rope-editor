@@ -18,3 +18,16 @@ In the root directory of the project, run this command:
 ```bash
 npm i
 ```
+
+# Deploy to firebase hosting
+The firebase cli must be logged in.
+
+1. Prepare the *public* directory:
+```bash
+./deploy-prep.sh
+```
+
+2. Delpoy the app
+```bash
+firebase deploy
+```
