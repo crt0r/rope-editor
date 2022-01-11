@@ -2,6 +2,8 @@
 Rope is a web application for creating and editing simple roadmaps.
 The roadmaps' styles can be customized, although not much.
 
+[Rope home page](https://rope-editor.web.app)
+
 # Our roadmap
 ![Rope project roadmap](./demo/roadmap.png)
 
